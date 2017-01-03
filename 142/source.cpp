@@ -1,0 +1,66 @@
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <cctype>
+using namespace std;
+
+struct ListNode {
+     int val;
+     ListNode *next;
+     ListNode(int x) : val(x), next(NULL) {}
+};
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode * fast = head;
+        ListNode * slow = head;
+        while(fast != NULL && fast->next != NULL){
+          slow = slow -> next;
+          fast = fast -> next -> next;
+          if(slow == fast){
+            slow = head;
+            while(slow != fast){
+              slow = slow -> next;
+              fast = fast -> next;
+            }
+            return fast;
+          }
+        }
+        return NULL;
+    }
+};
+
+int main(){
+
+ListNode *head = NULL;
+ListNode *head1 = NULL;
+
+for(int i = 5; i >=0; i=i-2){
+  ListNode *node = new ListNode(i);
+  node->next = head;
+  head = node;
+}
+
+// for(int i = 8; i >=0; i=i-2){
+//   ListNode *node = new ListNode(i);
+//   node->next = head1;
+//   head1 = node;
+// }
+
+Solution solution;
+ListNode * result = solution.detectCycle(head1);
+
+// while(head1){
+//   cout << head1->val << " ";
+//   head1 = head1->next;
+// }
+// cout << result << endl;
+
+    
+	return 0;
+}
