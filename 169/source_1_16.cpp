@@ -10,19 +10,38 @@ using namespace std;
 
 
 
+// class Solution {
+// public:
+//     int majorityElement(vector<int>& nums) {
+//         int len = nums.size();
+//         sort(nums.begin(),nums.end());
+//         return nums[int(len/2)];
+//     }
+// };
+
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int len = nums.size();
-        sort(nums.begin(),nums.end());
-        return nums[int(len/2)];
+        int count = 0, cand = 0;
+        for(int i = 0; i < nums.size(); i++){
+            if(nums[i] == cand){
+                count++;
+            }else if(count==0){
+                count++;
+                cand = nums[i];
+            }else{
+                count--;
+            }
+        }
+        return cand;
     }
 };
+
 
 int main(){
 
 
-    int arr[6] = {0,-1,0,0,0,-1};
+    int arr[6] = {0,-1,0,-1,-1,-1};
     vector<int> nums1(arr,arr+6);
     int result;
 	Solution solution;	
