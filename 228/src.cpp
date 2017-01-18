@@ -42,7 +42,7 @@ int main(){
     vector<int> nums1(arr,arr+6);
 	Solution solution;	
  
-	vector<string> result = solution.findDisappearedNumbers(nums1);	
+	vector<string> result = solution.summaryRanges(nums1);	
     for(int i = 0; i < result.size();i++){
         cout << result[i] << " ";
     }
