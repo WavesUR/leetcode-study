@@ -18,40 +18,35 @@ public:
           return v;
         }
         sort(nums.begin(),nums.end());
-        int cur = 0;
-        int left = cur + 1, right = len - 1;
         // {cur,left,right}
-        while(cur < len - 2){
-          left = cur + 1;
-          right = len - 1;
+        for(int cur = 0; cur < len - 2 && nums[cur] <= 0; cur++){
+          if(cur != 0 && (nums[cur] == nums[cur-1])){
+            continue;
+          }
+          int left = cur + 1;
+          int right = len - 1;
 
-          while(left < right && nums[cur] <= 0){
+          while(left < right){
             int result = nums[cur] + nums[left] + nums[right];
             if(result == 0){
               v.push_back({nums[cur],nums[left],nums[right]});
               do{
                 left++;
-              }while(nums[left] == nums[left-1]);
+              }while(nums[left] == nums[left-1] && left + 1 < right);
               do{
                 right--;
-              }while(nums[right] == nums[right+1]);
+              }while(nums[right] == nums[right+1] && right - 1 > left);
             }else if(result < 0){
               do{
                 left++;
-              }while(nums[left] == nums[left-1]);
+              }while(nums[left] == nums[left-1] && left + 1 < right);
             }else{
               do{
                 right--;
-              }while(nums[right] == nums[right+1]);
-            }
+              }while(nums[right] == nums[right+1] && right - 1 > left);
+            } 
           }
-
-          do{
-                cur++;
-              }while(nums[cur] == nums[cur-1]);
-
         }
-
        
         return v;
     }
