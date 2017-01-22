@@ -15,14 +15,16 @@ public:
       if(cur == nums.size()){
         res.push_back(v);
         return;
-      }
-        backtrack(nums,res,v,cur + 1); 
-        if(cur != 0 && nums[cur] == nums[cur-1]){
-          return;
-        }
+      } 
         v.push_back(nums[cur]);
         backtrack(nums,res,v,cur+1);
-        v.pop_back();
+        v.pop_back();        
+        if(!v.empty() && v.back() == nums[cur]){
+          return;
+        }             
+        backtrack(nums,res,v,cur + 1); 
+
+
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         vector<vector<int> > res;
@@ -36,8 +38,8 @@ public:
 
 int main(){
 
-  vector<int> nums(3);
-  nums = {1,2,2};
+  vector<int> nums;
+  nums = {1,1,2,2,3};
   Solution solution;
   vector<vector<int> > result = solution.subsetsWithDup(nums);
   for(int i = 0; i< result.size();i++){
