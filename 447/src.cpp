@@ -11,6 +11,7 @@
 using namespace std;
 
 //Time: O(n^2)
+//Space: O(n)
 class Solution {
 public:
     int numberOfBoomerangs(vector<pair<int, int> >& points) {
@@ -29,7 +30,6 @@ public:
             }
           }
           for(auto my_map_i : my_map){
-              // cout << my_map_i.second<< " ";
                 num = num + my_map_i.second * (my_map_i.second - 1);
             }
             my_map.clear(); 
