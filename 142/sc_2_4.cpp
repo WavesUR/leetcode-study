@@ -16,17 +16,22 @@ struct ListNode {
 
 class Solution {
 public:
-    bool hasCycle(ListNode *head) {
-        ListNode* slow = head;
-        ListNode* fast = head;
-        while(fast && fast->next){
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *slow = head;
+        ListNode *fast = head;
+        while(fast && fast -> next){
           slow = slow -> next;
           fast = fast -> next -> next;          
-          if(fast == slow){
-            return true;
+          if(slow == fast){
+             slow = head;
+              while(slow != fast){
+                slow = slow -> next;
+                fast = fast -> next;
+              } 
+              return slow;          
           }
         }
-        return false;
+        return NULL;
     }
 };
 
@@ -48,13 +53,13 @@ for(int i = 5; i >=0; i=i-2){
 // }
 
 Solution solution;
-bool result = solution.hasCycle(head1);
+ListNode * result = solution.detectCycle(head1);
 
-while(head1){
-  cout << head1->val << " ";
-  head1 = head1->next;
-}
-cout << result << endl;
+// while(head1){
+//   cout << head1->val << " ";
+//   head1 = head1->next;
+// }
+// cout << result << endl;
 
     
 	return 0;
