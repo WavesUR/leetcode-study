@@ -47,39 +47,43 @@ using namespace std;
 
 class Solution {
 public:
-    bool canPartition(vector<int>& nums) {
-        if(nums.size() <=1){
-          return false;
+    void dp(string p, int start, vector<int>& memo){
+        if(start >= p.length() - 1){
+          return;
         }
+        if(memo[start] != -1){
+          return;
+        }else{
+          dp(p,start+1,memo);
+        }
+        if(p[start]-p[start+1] == -1 || p[start]-p[start+1] == 'z'-'a'){
+          memo[start] = memo[start+1] + 1;
+        }else{
+          memo[start] = 1;
+        }
+        return;
+
+    }
+    int findSubstringInWraproundString(string p) {
+        if(p.length() == 0){
+          return 0;
+        }
+        vector<int> memo(p.length(),-1);
+        memo[p.length()-1] = 1;
+        dp(p,0,memo);
         int sum = 0;
-        for(int i = 0; i < nums.size();i++){
-          sum = sum + nums[i];
+        for(int i = 0; i < p.length(); i++){
+          sum = sum + memo[i];
         }
-        if(sum%2==1){
-          return false;
-        } 
-        int half = sum >> 1;
-        vector<bool> memo(half+1,false);
-        memo[half] = true;
-        for(int i = 0; i < nums.size();i++){
-          for(int j = nums[i]; j <= half;j++){
-            if(memo[j]){
-              memo[j-nums[i]] = true;
-              if(memo[0]){
-                return true;
-              }
-            }
-          }
-        } 
-        return memo[0];      
+        return sum;
     }
 };
 
 int main(){
 
-  vector<int> nums = {1, 5,5,11};
+  string s = "azab";
   Solution solution;
-  bool result = solution.canPartition(nums);
+  int result = solution.findSubstringInWraproundString(s);
 
   cout << result << endl;
 
