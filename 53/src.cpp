@@ -61,7 +61,7 @@ public:
         int len = nums.size();
         vector<int> memo(len,0);
         memo[len-1] = nums[len - 1];
-        int maxsub = INT_MIN;
+        int maxsub = nums[len - 1];
         for(int i = len - 2; i >= 0; i--){
           memo[i] = max(nums[i],nums[i]+memo[i+1]);
           maxsub = max(memo[i],maxsub);
