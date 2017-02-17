@@ -24,7 +24,7 @@ public:
         for(int i = strs.size() - 1; i >= 0;i--){
           res = res + strs[i];
         }
-        return res;
+        return res[0] == '0' ? "0" : res;
     }
 };
 
