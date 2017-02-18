@@ -14,11 +14,26 @@ using namespace std;
 class Solution {
 public:
     int kthSmallest(vector<vector<int> >& matrix, int k) {
-        queue<pair<int,int>> q;
-        q.push(make_pair(matrix[0][0],1));
-        int level_flag = 1;
-        
+        auto comp = [&matrix](pair<int,int>& a, pair<int,int>& b){return matrix[a.first][a.second] > matrix[b.first][b.second];};
+        priority_queue<pair<int,int>, vector<pair<int,int> >, decltype(comp) > minHeap(comp);
 
+        int n = matrix.size();
+        int i = 0, j = 0;
+        for(int i = 0; i < min(n,k); i++){
+          minHeap.push(make_pair(0,i));
+        }
+        int count = k;
+        while(count > 1){
+          auto temp = minHeap.top();
+          minHeap.pop();
+          if(temp.first+1<n){
+            minHeap.push(make_pair(temp.first+1,temp.second));
+          }
+          count--;
+
+        }
+        auto temp = minHeap.top();
+        return matrix[temp.first][temp.second];
 
     }
 };
@@ -26,8 +41,8 @@ public:
 int main(){
 
   vector<vector<int> > nums;
-  nums = {{1,2},{3,4}};
-  int k = 2;
+  nums = {{1,5,9},{10,11,13},{12,13,15}};
+  int k = 6;
   Solution solution;
   int result = solution.kthSmallest(nums, k);
 
