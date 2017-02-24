@@ -26,7 +26,7 @@ public:
     void push(int x) {
 
         if(s.empty() || x < min_val.back().first){
-            min_val.push_back(make_pair(x,min_val.size()+1));
+            min_val.push_back(make_pair(x,s.size()+1));
         }
         s.push(x);        
     }
