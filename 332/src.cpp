@@ -30,11 +30,7 @@ public:
             map[tickets[i].first].push(tickets[i].second);        
         }
         vector<string> res;
-        string cur = "JFK";
-        if(map.find(cur) == map.end()){
-          return res;
-        }
-        dfs(map,res,cur);
+        dfs(map,res,"JFK");
         reverse(res.begin(),res.end());
         return res;
     }
