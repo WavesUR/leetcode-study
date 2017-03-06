@@ -12,18 +12,28 @@ using namespace std;
 
 class Solution {
 public:
+    int newindex(int index, int n){
+      return (1 + 2 * index) % (n | 1);
+    }
     void wiggleSort(vector<int>& nums) {
-        vector<int> temp = nums;
-        sort(temp.begin(),temp.end());
-        // nums = temp;
-        int mid = nums.size()/2;
-        for(int i = 0; i < nums.size(); i++){
-            if(i%2==0){
-                nums[i] = temp[i/2];
-            }else{
-                nums[i] = temp[mid+i/2];
-            }
+      int n = nums.size();
+      auto minptr = nums.begin() + n /2; // find median
+      nth_element(nums.begin(),minptr,nums.end());
+      int mid = *minptr;
+      int left = 0, right = n- 1;
+      int i = 0;
+      while(i <= right){
+        if(nums[newindex(i,n)] > mid){
+          swap(nums[newindex(left,n)],nums[newindex(i,n)]);
+          left++;
+          i++;
+        }else if(nums[newindex(i,n)] < mid){
+          swap(nums[newindex(right,n)],nums[newindex(i,n)]);
+          right--;
+        }else{
+          i++;
         }
+      }
     }
 };
 
@@ -31,7 +41,7 @@ public:
 
 int main(){
 
-  vector<int> nums = {1,3,2,2,3,1};
+  vector<int> nums = {1,2,3,4,5,6};
   Solution solution;
   solution.wiggleSort(nums);
   for(auto num:nums){

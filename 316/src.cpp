@@ -32,19 +32,19 @@ public:
     
     void update(int i, int val) {
          int temp = val - inter_nums[i];  
-         inter_nums[i] = val;
- //        i = i + 1;
+ //        inter_nums[i] = val;
+         i = i + 1;
 
-            while(i < n){
+            while(i <= n){
                 inter_sum[i] = inter_sum[i] + temp;
                 i = i + (i & (-i));
             }
     }
     
     int sumRange(int j) { 
-//        j = j + 1;
+        j = j + 1;
         int sum_j = 0;
-         while(j >= 0){
+         while(j > 0){
             sum_j = sum_j + inter_sum[j];
             j = j - (j & (-j));
         }  
@@ -59,12 +59,12 @@ public:
     	sort(temp_num.begin(),temp_num.end());
     	unordered_map<int,int> dic;
     	for(int i = 0; i < temp_num.size();i++){
-    		dic[temp_num[i]] = i;
+    		dic[temp_num[i]] = i + 1;
     	}
         NumArray numarray(vector<int>(nums.size(),0));
         vector<int> res(nums.size());
         for(int i = nums.size() - 1; i >= 0; i--){
-        	res[i] = numarray.sumRange(dic[nums[i]]-1);
+        	res[i] = numarray.sumRange(dic[nums[i]] - 1);
         	numarray.update(dic[nums[i]],1);
         }
         return res;
