@@ -13,29 +13,19 @@ using namespace std;
 class Solution {
 public:
     bool find132pattern(vector<int>& nums) {
-        if(nums.size() < 3) {
-          return false;
-        }
-
-        stack<int> my_stack;
-        for(int i = 0; i < nums.size(); i++){
-          if(!my_stack.empty()){
-            if(nums[i] > my_stack.top()){
-              my_stack.push(nums[i]);
-            }else if(nums[i] < my_stack.top()){
-              my_stack.pop();
-              if(!my_stack.empty() && nums[i] > my_stack.top()){
-                return true;
-              }
-              my_stack.push(nums[i]);
-            }
-          }else{
-            my_stack.push(nums[i]);
+        stack<int> s2; // always store the maximum value
+        int s3 = INT_MIN;
+        for(int i = nums.size() - 1; i >= 0; i--){
+          if(nums[i] < s3){
+            return true;
           }
-          
+          while(!s2.empty() && nums[i] > s2.top()){
+            s3 = s2.top();
+            s2.pop();
+          }
+          s2.push(nums[i]);
         }
         return false;
-
     }
 };
 
